@@ -1,38 +1,171 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
+a {
+  text-decoration: none;
+  color: #00a0e3;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#espana {
+  opacity: 1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: #f2f2f2;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
+.region {
+  opacity: 1;
+  cursor: pointer;
+}
+.region:hover {
+  opacity: 1;
+}
+
+.region:hover path {
+  fill: #f3e0a8;
+}
+
+#root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.st0 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #daf7ff;
+}
+.st1 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #fff;
+  fill-opacity: 0.702;
+}
+.st2 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #ffffff;
+}
+.st3 {
+  fill: #ffffff;
+  fill-opacity: 0.2;
+}
+.st4 {
+  fill: none;
+  stroke: #00a0e3;
+  stroke-width: 0.216;
+  stroke-miterlimit: 10;
+  stroke-opacity: 0.2;
+}
+.st5 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #f5f3f0;
+  fill-opacity: 0.8;
+}
+.st6 {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 0.7085;
+  stroke-miterlimit: 10;
+}
+.st7 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #f76b8e;
+  stroke: #000000;
+  stroke-width: 0.7085;
+  stroke-miterlimit: 10;
+}
+.st8 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #fc85fc;
+  stroke: #000000;
+  stroke-width: 0.7085;
+  stroke-miterlimit: 10;
+}
+.st9 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #d4f766;
+  stroke: #000000;
+  stroke-width: 0.7085;
+  stroke-miterlimit: 10;
+}
+.st10 {
+  fill: none;
+  stroke: #00ccff;
+  stroke-width: 0.7085;
+  stroke-miterlimit: 10;
+}
+.st11 {
+  fill: #00ccff;
+}
+.st12 {
+  font-family: 'Arial-BoldMT';
+}
+.st13 {
+  font-size: 2.3112px;
+}
+.st14 {
+  font-size: 5.9357px;
+}
+.st15 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+.st16 {
+  font-family: 'MyriadPro-Regular';
+}
+.st17 {
+  font-size: 3.4927px;
+}
+.st18 {
+  font-size: 4.194px;
+}
+.st19 {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 0.7085;
+  stroke-miterlimit: 10;
+  stroke-dasharray: 1.4173, 2.126;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.MuiInputBase-root {
+  color: #000 !important;
+  border-color: #000 !important;
+}
+
+.MuiFormLabel-root {
+  color: #000 !important;
+}
+
+.IN-widget {
+  display: none !important;
+}
+
+.MuiDialogContent-root {
+  margin-top: 2em;
+}
+
+iframe[src*='ads-iframe'] {
+  display: none;
+}
+
+.myclass {
+  height: 1000px;
+}
+
+.makeStyles-sideBar-53 {
+  background: #ddd8d2;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
