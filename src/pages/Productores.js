@@ -143,7 +143,7 @@ const Productores = () => {
                 display: "flex",
                 justifyContent: "flex-end",
                 marginTop: "1em",
-                alignItems: 'flex-end'
+                alignItems: 'center'
               }}
             >
               <FormControl className={classes.formControl}>

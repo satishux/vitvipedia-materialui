@@ -26,8 +26,6 @@ import RegionContainer from '../components/RegionContainer.js';
 const Inicio = ({
   isLogoClicked,
   setIsLogoClicked,
-  showFav,
-  toggleFavWines,
   headerMapToggle,
   mapToggleHandler,
   region,
@@ -224,14 +222,14 @@ const Inicio = ({
           <RegionContainer region={clickedRegion} regionTitle={regionTitle} />
         </Grid>
 
-        <SwipeableDrawer
+        {/* <SwipeableDrawer
           anchor="right"
           open={showFav}
           onClose={() => toggleFavWines()}
           onOpen={() => toggleFavWines()}
         >
           <FavoriteWines />
-        </SwipeableDrawer>
+        </SwipeableDrawer> */}
       </div>
     </Container>
   );
@@ -239,14 +237,14 @@ const Inicio = ({
 
 const mapStateToProps = state => {
   return {
-    showFav: state.showFav,
+    // showFav: state.showFav,
     headerMapToggle: state.headerMapToggle,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleFavWines: () => dispatch(actions.toggleFavWines()),
+    // toggleFavWines: () => dispatch(actions.toggleFavWines()),
     mapToggleHandler: () => dispatch(actions.headerMapToggle())
   };
 };

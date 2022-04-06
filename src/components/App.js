@@ -28,6 +28,8 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import UserAccount from "../pages/UserAccount";
 import Checkout from "../pages/Checkout";
+import FavoriteWines from "./ui/FavoriteWines";
+import { SwipeableDrawer } from "@mui/material";
 
 const consumer_key = "ck_1dba763719cb378e99ec68def39b18b16e9cb3c7";
 const consumer_secret = "cs_fac9c617b03b9dc71562585a46772f4103585c48";
@@ -44,6 +46,8 @@ function App({
   loading,
   setCities,
   updateTotals,
+  showFav,
+  toggleFavWines,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [value, setValue] = useState(0);
@@ -292,6 +296,14 @@ function App({
             setSelectedIndex={setSelectedIndex}
             setIsLogoClicked={setIsLogoClicked}
           />
+           <SwipeableDrawer
+            anchor="right"
+            open={showFav}
+            onClose={() => toggleFavWines()}
+            onOpen={() => toggleFavWines()}
+          >
+            <FavoriteWines />
+          </SwipeableDrawer>
            
               <Switch>
                 <Route
@@ -385,6 +397,7 @@ const mapDispachToProps = (dispatch) => {
     setLoading: (value) => dispatch(actions.setLoading(value)),
     setCities: (value) => dispatch(actions.setCities(value)),
     updateTotals: (value) => dispatch(actions.updateTotals(value)),
+    toggleFavWines: () => dispatch(actions.toggleFavWines()),
   };
 };
 const mapStateToProps = (state) => {
@@ -392,6 +405,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     products: state.products,
     loading: state.loading,
+    showFav: state.showFav,
   };
 };
 

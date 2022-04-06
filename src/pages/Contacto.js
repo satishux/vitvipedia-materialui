@@ -16,6 +16,9 @@ import emailIcon from '../assets/email.svg';
 import airplane from '../assets/send.svg';
 
 const useStyles = makeStyles(theme => ({
+  mainContainer: {
+    flex: 1,
+  },
   background: {
     backgroundImage: `url(${Poster})`,
     backgroundPosition: 'center',
@@ -24,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     // height: '39.5em',
     marginTop: '-1.75em',
     [theme.breakpoints.up('md')]: {
-      height: '39.5em'
+      // height: '39.5em'
     },
     [theme.breakpoints.down('lg')]: {
       height: '30em'

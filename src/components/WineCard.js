@@ -8,6 +8,7 @@ import {
   Typography,
   Chip
 } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   winecardRoot: {
@@ -45,6 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 const WineCard = ({ wine }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [productInfo, setProductInfo] = useState({
     type: null,
     Tamaño: null,
@@ -56,21 +58,25 @@ const WineCard = ({ wine }) => {
     const updatedProductInfo = { ...productInfo };
 
     wine.meta_data.forEach(meta => {
-      updatedProductInfo[meta.key] = meta.value;
-      // if (meta.key === 'type') {
-      //   updatedProductInfo.type = meta.value;
-      // }
-      // if (meta.key === 'Tamaño') {
-      //   updatedProductInfo.Tamaño = meta.value;
-      // }
+      // updatedProductInfo[meta.key] = meta.value;
+      if (meta.key === 'type') {
+        updatedProductInfo.type = meta.value;
+      }
+      if (meta.key === 'Tamaño') {
+        updatedProductInfo.Tamaño = meta.value;
+      }
 
-      // if (meta.key === 'variedad') {
-      //   updatedProductInfo.variedad = meta.value;
-      // }
+      if (meta.key === 'variedad') {
+        updatedProductInfo.variedad = meta.value;
+      }
 
-      // if (meta.key === 'do') {
-      //   updatedProductInfo.do = meta.value;
-      // }
+      if (meta.key === 'do') {
+        updatedProductInfo.do = meta.value;
+      }
+
+      if(meta.key === 'region') {
+        updatedProductInfo.region = meta.value;
+      }
     });
 
     setProductInfo(updatedProductInfo);
@@ -94,7 +100,7 @@ const WineCard = ({ wine }) => {
 
   return (
     <div className={classes.winecardRoot}>
-      <Card>
+      <Card style={{cursor: 'pointer'}} onClick={() =>  history.push(`/vino/${wine.slug}`)}>
         <CardContent className={classes.wineCardContent}>
           <Grid container>
             <Grid
@@ -133,20 +139,19 @@ const WineCard = ({ wine }) => {
                       Botella de {productInfo.Tamaño}
                     </Typography>
                   )} */}
-
-                  {Object.entries(productInfo).map(([key, value]) => {
-                    if (key == 'Tamaño') {
-                      return <Typography
+                  <Typography
                         style={{
                           color: '#999',
                           fontSize: '0.9em',
                           marginBottom: '1em'
                         }}
                       >
-                        Botella de {value}
+                        Botella de {productInfo['Tamaño']}
                       </Typography>
-                    }
-                    if(value && value !== '') {
+                  
+                  {Object.entries(productInfo).map(([key, value]) => {
+                  
+                    if(value && value !== '' && key !== 'Tamaño' ) {
                       return  <Box display="flex" style={{padding: '10px 0'}}>
                         <Typography>
                           <span className={classes.wineDetailInfo}>{getLabel(key)}:</span>{' '}

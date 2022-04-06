@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '11em'
   },
   marginPage: {
-    width: '640px',
+    width: '1200px',
     [theme.breakpoints.up('md')]: {
       margin: '0px 64px'
     },

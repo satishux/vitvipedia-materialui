@@ -17,6 +17,7 @@ import QuantityCounter from './ui/QuantityCounter';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import actions from '../store/actions';
 import axios from 'axios';
+import WineCard from './WineCard';
 
 const useStyles = makeStyles(theme => ({
   containerStyle: {
@@ -70,6 +71,7 @@ const IndividualWinePage = ({
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [err, setErr] = useState({ show: false, message: '' });
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [productMetaInfo, setProductMetaInfo] = useState({
     type: null,
     Tamaño: null,
@@ -89,6 +91,19 @@ const IndividualWinePage = ({
       setProductMetaInfo(updatedProductInfo)
     }
   }, [product]);
+
+  useEffect(() => {
+    if (product && products && products.length > 0) {
+      const updatedRelatedProducts = [];
+      products.forEach(item => {
+        if(item.region === product.region && item.id !== product.id) {
+          updatedRelatedProducts.push(item);
+        }
+      });
+
+      setRelatedProducts(updatedRelatedProducts);
+    }
+  }, [product, products]);
 
   useEffect(() => {
     const slug = location.pathname.split('/')[2];
@@ -245,6 +260,20 @@ const IndividualWinePage = ({
         </Card>
       </Container>
 
+      <Container style={{ marginTop: '20px', marginBottom: '20px'}} >
+        <Grid container>
+          {relatedProducts.map(item => (<Grid item xs={12} sm={6} lg={4}>
+            <WineCard wine={{...item, image: item.img}}  />
+          </Grid>))}
+          {relatedProducts.length === 0 && <Grid item xs={12}>
+              <Card style={{padding : "20px", display: 'flex', justifyContent: 'center'}}>
+                  <Typography variant="h3">No related products found!</Typography>
+              </Card>
+            </Grid>}
+        </Grid>
+      </Container>
+
+      
       <Snackbar
         open={err.show}
         message={err.message}

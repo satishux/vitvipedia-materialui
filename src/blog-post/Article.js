@@ -181,7 +181,7 @@ const Article = props => {
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
-        <Disqus url={window.location.href} identifier={window.location.href} />
+        {/* <Disqus url={window.location.href} identifier={window.location.href} /> */}
       </div>
     </div>
   );
