@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import Avatar from '@mui/material/Avatar';
-import Disqus from '../components/ui/Disqus';
+// import Disqus from '../components/ui/Disqus';
 
 // // -------- pictures ---------- /
 // import copaTinto from '../blog-fotos/elaboracionTinto/vino-tinto-botella-copa.jpg';

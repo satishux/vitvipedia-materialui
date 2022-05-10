@@ -238,24 +238,25 @@ const IndividualWinePage = ({
       <Container style={{ marginTop: '20px', marginBottom: '20px' }}>
         <Card className={classes.mainCardStyle}>
           <Grid container>
-            <Grid item xs={12}>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                
+                {/* <Box sx={{ display: 'grid',   gridTemplateColumns: 'repeat(4, 1fr)' }}> */}
 
-                {Object.entries(productMetaInfo).map(([key, value]) => {
-                  if (value && value !== '') {
-                    return <Box style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <Typography>
-                        <span className={classes.wineDetailInfo}>{getLabel(key)}:</span>{' '}
-                      </Typography>
-                      <Typography>
-                        {value.length > 30 ? value.substring(0, 30) + '...' : value}
-                      </Typography>
-                    </Box>
-                  }
-                })}
-              </ Box>
-            </Grid>
-
+                  {Object.entries(productMetaInfo).map(([key, value]) => {
+                    if (value && value !== '') {
+                      return <Grid item xs={12} sm={4} lg={3}>
+                      <Box style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Typography>
+                          <span className={classes.wineDetailInfo}>{getLabel(key)}:</span>{' '}
+                        </Typography>
+                        <Typography>
+                          {value.length > 30 ? value.substring(0, 30) + '...' : value}
+                        </Typography>
+                      </Box>
+                      </Grid>;
+                    }
+                  })}
+                {/* </ Box> */}
+                
           </Grid>
         </Card>
       </Container>

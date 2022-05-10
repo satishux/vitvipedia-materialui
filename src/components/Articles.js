@@ -133,7 +133,7 @@ const Article = () => {
     //   default:
     //     setPageName(<div>Página no encontrada</div>);
     // }
-  }, []);
+  }, [location]);
 
   return (
     <div>
@@ -143,7 +143,7 @@ const Article = () => {
       <Grid container className={classes.mainContainer}>
         {randomArticles.map((val, idx) => (
           <Grid item lg={3} className={classes.individualGrid}>
-            <Link to={val.route} className={classes.linkStyle}>
+            <Link to={{ pathname: val.route, state: val}} className={classes.linkStyle}>
               <Grid container>
                 <Grid item lg={6} xs={6}>
                   <h3 className={classes.h3Style}>{val.title}</h3>

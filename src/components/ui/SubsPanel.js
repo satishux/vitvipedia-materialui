@@ -9,17 +9,32 @@ import Button from '@mui/material/Button';
 const useStyles = makeStyles(theme => ({
   paperStyle: {
     padding: '2em',
-    marginBottom: '2em'
+    marginBottom: '2em',
+
+    [theme.breakpoints.down('md')]: {
+      padding: '1em',
+    },
+    // [theme.breakpoints.down('lg')]: {
+    //   padding: '2em',
+    // },
   },
   textFieldStyle: {
-    marginRight: '1em'
+    marginRight: '1em',
+    flex: 1,
+    [theme.breakpoints.down('md')]: {
+      marginRight: '0.5em',
+    },
   },
   buttonStyle: {
     backgroundColor: '#EEEEEE',
     margin: '0.5em',
     '&:hover': {
       backgroundColor: '#f78550'
-    }
+    },
+
+    [theme.breakpoints.down('md')]: {
+      minWidth: '8em',
+    },
   }
 }));
 

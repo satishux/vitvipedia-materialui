@@ -167,7 +167,7 @@ const WineModal = ({
                     >
                       Añadir al carrito
                     </Button> */}
-                    <Button
+                    {/* <Button
                       variant="outlined"
                       style={{
                         height: '2.75em',
@@ -179,7 +179,7 @@ const WineModal = ({
                       }}
                     >
                       Comprar
-                    </Button>
+                    </Button> */}
                     <Button
                       variant="outlined"
                       style={{
