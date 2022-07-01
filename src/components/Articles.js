@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
@@ -60,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '2.5em'
   }
 }));
-const Article = () => {
+const Articles = ({articles}) => {
   const classes = useStyles();
   // const { page } = useParams();
   // const [pageName, setPageName] = useState(null);
@@ -69,7 +70,7 @@ const Article = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const tempArray = [...articlesList]
+    const tempArray = [...articles]
       .sort(function () {
         return Math.random() - 0.5;
       })
@@ -164,4 +165,10 @@ const Article = () => {
   );
 };
 
-export default Article;
+const mapStateToProps = (state) => {
+  return {
+    articles: state.articles
+  };
+};
+
+export default connect(mapStateToProps)(Articles);

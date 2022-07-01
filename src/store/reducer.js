@@ -2,6 +2,7 @@ const initState = {
   fevoriteWineList: [],
   showFav: false,
   headerMapToggle: false,
+  drawerOpen: false,
   selectedProducer: null,
   products: [],
   cart: [],
@@ -9,7 +10,8 @@ const initState = {
   user: null,
   loading: false,
   userAddress: null,
-  cities: []
+  cities: [],
+  articles: [],
 };
 
 const reducer = (state = initState, action) => {
@@ -104,6 +106,17 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         cities: action.payload
+      };
+    case 'SAVE_ARTICLES':
+      return {
+        ...state,
+        articles: action.payload
+      };
+    case 'TOGGLE_DRAWER':
+      return {
+        ...state,
+        headerMapToggle: action.payload === true ? false : state.headerMapToggle,
+        drawerOpen: action.payload
       };
     default:
       return state;

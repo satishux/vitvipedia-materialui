@@ -197,9 +197,9 @@ const WineModal = ({
                 </Box>
               </Box>
             </DialogContent>
-            <DialogActions>
+            {/* <DialogActions>
               <Button onClick={() => onClose(false)}>Cerrar</Button>
-            </DialogActions>
+            </DialogActions> */}
           </>
         ) : (
           <div className={classes.spinner}>

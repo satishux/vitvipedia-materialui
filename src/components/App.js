@@ -48,11 +48,38 @@ function App({
   updateTotals,
   showFav,
   toggleFavWines,
+  saveArticles,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [value, setValue] = useState(0);
 
   const [isLogoClicked, setIsLogoClicked] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const getPosts = async () => {
+      try {
+        const response = await axios.get(
+          'https://backend.vitivipedia.com/wp-json/vitivipedia/v1/posts'
+        );
+        const posts = response.data; // wordpress format
+        if (isMounted) {
+          saveArticles(posts);
+        }
+
+      } catch(err) {
+        console.log(err);
+
+      }
+      
+    };
+
+    getPosts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const favList = [];
@@ -398,6 +425,7 @@ const mapDispachToProps = (dispatch) => {
     setCities: (value) => dispatch(actions.setCities(value)),
     updateTotals: (value) => dispatch(actions.updateTotals(value)),
     toggleFavWines: () => dispatch(actions.toggleFavWines()),
+    saveArticles: (value) => dispatch(actions.saveArticles(value)),
   };
 };
 const mapStateToProps = (state) => {

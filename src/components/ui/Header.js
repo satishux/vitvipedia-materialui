@@ -178,6 +178,16 @@ const Header = props => {
   const history = useHistory();
   const [userDropdownEl, setUserDropdownEl] = React.useState(null);
 
+  useEffect(() => {
+    props.toggleDrawer(openDrawer)
+  }, [openDrawer])
+
+  useEffect(() => {
+    if(props.headerMapToggleVal) {
+      setOpenDrawer(false);
+    }
+  }, [props.headerMapToggleVal])
+
   const handleClick = event => {
     setUserDropdownEl(event.currentTarget);
   };
@@ -471,12 +481,14 @@ const mapStateToProps = state => {
   return {
     favWines: state.fevoriteWineList,
     cart: state.cart,
-    user: state.user
+    user: state.user,
+    headerMapToggleVal: state.headerMapToggle,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    toggleDrawer: (value) => dispatch(actions.toggleDrawer(value)),
     toggleFavWines: () => dispatch(actions.toggleFavWines()),
     headerMapToggle: () => dispatch(actions.headerMapToggle())
   };

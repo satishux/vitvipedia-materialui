@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from "react-redux";
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -13,6 +14,7 @@ import Box from '@mui/material/Box';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Pagination from '@mui/material/Pagination';
 import SubsPanel from '../components/ui/SubsPanel';
+import actions from "../store/actions";
 
 // --------- images
 
@@ -78,7 +80,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Blog = () => {
+const Blog = ({articles}) => {
   const classes = useStyles();
   const location = useLocation();
   const history = useHistory();
@@ -118,30 +120,36 @@ const Blog = () => {
   };
 
   useEffect(() => {
-    let isMounted = true;
-    const getPosts = async () => {
-      try {
-        const response = await axios.get(
-          'https://backend.vitivipedia.com/wp-json/vitivipedia/v1/posts'
-        );
-        const posts = response.data; // wordpress format
-        if (isMounted) {
-          setBlogData(posts);
-        }
 
-      } catch(err) {
-        console.log(err);
+      setBlogData(articles);
+  }, [articles]);
 
-      }
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const getPosts = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         'https://backend.vitivipedia.com/wp-json/vitivipedia/v1/posts'
+  //       );
+  //       const posts = response.data; // wordpress format
+  //       if (isMounted) {
+  //         saveArticles(posts);
+  //         setBlogData(posts);
+  //       }
+
+  //     } catch(err) {
+  //       console.log(err);
+
+  //     }
       
-    };
+  //   };
 
-    getPosts();
+  //   getPosts();
 
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (location.search.length > 0) {
@@ -185,19 +193,19 @@ const Blog = () => {
     }
   };
 
-  useEffect(() => {
-    let updatedBlogData = blogData.map(item => {
-      if (localStorage.getItem(item.title)) {
-        return {
-          ...item,
-          bookmarked: true
-        };
-      }
-      return item;
-    });
-    const updatedData = reorgenizeArticles(updatedBlogData);
-    setBlogData(updatedData);
-  }, []);
+  // useEffect(() => {
+  //   let updatedBlogData = blogData.map(item => {
+  //     if (localStorage.getItem(item.title)) {
+  //       return {
+  //         ...item,
+  //         bookmarked: true
+  //       };
+  //     }
+  //     return item;
+  //   });
+  //   const updatedData = reorgenizeArticles(updatedBlogData);
+  //   setBlogData(updatedData);
+  // }, []);
 
   const toggleBookMarked = item => {
     // toogle bookmark
@@ -312,5 +320,10 @@ const Blog = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    articles: state.articles
+  };
+};
 
-export default Blog;
+export default connect(mapStateToProps)(Blog);

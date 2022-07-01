@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import Avatar from '@mui/material/Avatar';
+import { connect } from "react-redux";
+import { useLocation} from 'react-router-dom';
 // import Disqus from '../components/ui/Disqus';
 
 // // -------- pictures ---------- /
@@ -27,7 +29,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     backgroundColor: '#ffff',
     fontFamily: 'Lora',
-    paddingBottom: '11em'
+    padding: '20px',
+    paddingBottom: '11em',
   },
   marginPage: {
     width: '640px',
@@ -38,7 +41,8 @@ const useStyles = makeStyles(theme => ({
       margin: '0px 48px'
     },
     [theme.breakpoints.down('md')]: {
-      margin: '0px 24px'
+      margin: '0px 24px',
+      width: '400px',
     }
   },
   titleStyle: {
@@ -154,31 +158,52 @@ const useStyles = makeStyles(theme => ({
 const Article = props => {
   const classes = useStyles();
   const { post } = props;
+  const location = useLocation();
+  const [article, setArticle] = useState({});
+
+  useEffect(() => {
+    if(post && post.title) {
+      setArticle(post);
+    }
+  }, [post]);
+
+  useEffect(() => {
+      if(post.title) return;
+      if(props.articles && props.articles.length > 0) {
+        const index = props.articles.findIndex(item => item.title == location.pathname);
+        if(index !== -1) {
+          setArticle(props.articles[index]);
+        }
+      }
+
+  }, [location.pathname])
+
+
 
   //const [getTitle] = useState('¿Qué es el vino tinto y cómo se elabora?');
 
   return (
     <div className={classes.root}>
       <div className={classes.marginPage}>
-        <h1 className={classes.titleStyle}>{post.title}</h1>
+        <h1 className={classes.titleStyle}>{article.title}</h1>
         <h2 className={classes.subtitle}>El proceso paso a paso.</h2>
         <div className={classes.articleInfo}>
           <div className={classes.authorContainer}>
             <div className={classes.avatarStyle}>
-              <Avatar img src={post.avatar} alt={post.author} />
+              <Avatar img src={article.avatar} alt={article.author} />
             </div>
             <div className={classes.authorStyle}>
-              <p>{post.author}</p>
+              <p>{article.author}</p>
             </div>
           </div>
-          <SocialMediaIcons title={post.title} />
+          <SocialMediaIcons title={article.title} />
         </div>
         <div className={classes.imgContainerStyle}>
-          <img className={classes.mainImgStyle} src={post.img} alt={post.img} />
+          <img className={classes.mainImgStyle} src={article.img} alt={article.img} />
         </div>
         <div
           className={classes.paragraphStyleContainer}
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: article.content }}
         />
 
         {/* <Disqus url={window.location.href} identifier={window.location.href} /> */}
@@ -187,4 +212,11 @@ const Article = props => {
   );
 };
 
-export default Article;
+const mapStateToProps = (state) => {
+  return {
+    articles: state.articles
+  };
+};
+
+export default connect(mapStateToProps)(Article);
+

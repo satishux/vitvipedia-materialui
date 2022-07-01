@@ -218,6 +218,21 @@ const setCities = value => {
   };
 };
 
+const saveArticles = value => {
+  return {
+    type: 'SAVE_ARTICLES',
+    payload: value
+  }
+};
+
+const toggleDrawer = value => {
+  return {
+    type: 'TOGGLE_DRAWER',
+    payload: value
+  }
+};
+
+
 
 const actions = {
   saveFevoriteWines,
@@ -240,6 +255,8 @@ const actions = {
   updateTotals,
   saveUserAddress,
   setCities,
+  saveArticles,
+  toggleDrawer,
 };
 
 export default actions;
