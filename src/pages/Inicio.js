@@ -92,7 +92,6 @@ const Inicio = ({
   const showWhiteWines = e => {
     const button = e.target.closest('button');
 
-    console.log(showWhiteWineList);
     if (showWhiteWineList) {
       setShowWhiteWineList(false);
       button.classList.remove('wineBtnActive');

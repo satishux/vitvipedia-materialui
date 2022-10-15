@@ -33,20 +33,19 @@ import FavoriteWines from "./components/ui/FavoriteWines";
 import actions from "./store/actions";
 // import winelist from "./wineList/list";
 
-const consumer_key = "ck_1dba763719cb378e99ec68def39b18b16e9cb3c7";
-const consumer_secret = "cs_fac9c617b03b9dc71562585a46772f4103585c48";
+// const consumer_key = "ck_1dba763719cb378e99ec68def39b18b16e9cb3c7";
+// const consumer_secret = "cs_fac9c617b03b9dc71562585a46772f4103585c48";
 
 function App({
-  saveFavWines,
   storeFetchedProducts,
-  saveUser,
-  saveUserAddress,
+  // saveUser,
+  // saveUserAddress,
   user,
-  products,
-  updateCart,
-  setLoading,
-  setCities,
-  updateTotals,
+  // products,
+  // updateCart,
+  // setLoading,
+  // setCities,
+  // updateTotals,
   showFav,
   toggleFavWines,
   saveArticles,
@@ -82,116 +81,102 @@ function App({
 
 
   // useEffect(() => {
-  //   if (!winelist || winelist.length === 0) return;
+  //   const localUser = localStorage.getItem("user");
 
-  //   const favList = [];
-  //   winelist.forEach((item) => {
-  //     const isWineFav = localStorage.getItem(item.name);
-  //     if (isWineFav) {
-  //       favList.push(item);
+  //   const validateUser = async () => {
+  //     const parsedUser = JSON.parse(localUser);
+  //     setLoading(true);
+  //     const url = "https://backend.vitivipedia.com/wp-json/jwt-auth/v1/token/validate";
+  //     const response = await axios
+  //       .post(
+  //         url,
+  //         null,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${parsedUser.token}`,
+  //           },
+  //         }
+  //       );
+  //     if (!response.data || response.data.statusCode !== 200) return false;
+  //     saveUser(parsedUser);
+  //     setLoading(false);
+  //     return true;
+  //   }
+
+  //   const getUserData = async () => {
+  //     const isValid = await validateUser();
+  //     if (!isValid) return;
+  //     const parsedUser = JSON.parse(localUser);
+  //     setLoading(true);
+  //     const url = `https://backend.vitivipedia.com/wp-json/wc/v3/customers/${parsedUser.id}?consumer_key=${consumer_key}&consumer_secret=${consumer_secret}`;
+  //     const response = await axios.get(url);
+  //     if (!response.data || response.data.statusCode !== 200) return false;
+
+  //     const { data } = response;
+  //     saveUserAddress(data.shipping);
+  //     setLoading(false);
+  //   }
+
+  //   if (localUser) {
+  //     getUserData();
+  //   }
+
+  // }, [setLoading, saveUserAddress, saveUser]);
+
+  // useEffect(() => {
+  //   if (!user || products.length === 0) return;
+
+  //   const fetchCartItems = async () => {
+  //     const url = "https://backend.vitivipedia.com/wp-json/cocart/v2/cart";
+  //     const response = await axios.get(url, {
+  //       headers: {
+  //         Authorization: `Bearer ${user.token}`,
+  //       },
+  //     });
+
+  //     if (!response.data || response.data.statusCode !== 200) return false;
+  //     const { data } = response;
+  //     if (data && data.items.length > 0) {
+  //       const updatedCart = data.items.map((item) => {
+  //         const index = products.findIndex((i) => i.id === item.id);
+  //         if (index !== -1) {
+  //           const updatedItem = {
+  //             ...products[index],
+  //             price: parseFloat(item.price),
+  //             quantity: parseInt(item.quantity.value),
+  //             item_key: item.item_key,
+  //             subtotal: parseFloat(item.totals.subtotal),
+  //           };
+  //           return updatedItem;
+  //         }
+
+  //         return {};
+  //       });
+
+  //       updateCart(updatedCart);
+  //       updateTotals(data.totals);
   //     }
-  //   });
+  //   }
 
-  //   saveFavWines(favList);
-  // }, [saveFavWines]);
+  //   fetchCartItems();
 
-  useEffect(() => {
-    const localUser = localStorage.getItem("user");
+  // }, [user, products, updateCart, updateTotals]);
 
-    const validateUser = async () => {
-      const parsedUser = JSON.parse(localUser);
-      setLoading(true);
-      const url = "https://backend.vitivipedia.com/wp-json/jwt-auth/v1/token/validate";
-      const response = await axios
-        .post(
-          url,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${parsedUser.token}`,
-            },
-          }
-        );
-      if (!response.data || response.data.statusCode !== 200) return false;
-      saveUser(parsedUser);
-      setLoading(false);
-      return true;
-    }
-
-    const getUserData = async () => {
-      const isValid = await validateUser();
-      if (!isValid) return;
-      const parsedUser = JSON.parse(localUser);
-      setLoading(true);
-      const url = `https://backend.vitivipedia.com/wp-json/wc/v3/customers/${parsedUser.id}?consumer_key=${consumer_key}&consumer_secret=${consumer_secret}`;
-      const response = await axios.get(url);
-      if (!response.data || response.data.statusCode !== 200) return false;
-
-      const { data } = response;
-      saveUserAddress(data.shipping);
-      setLoading(false);
-    }
-
-    if (localUser) {
-      getUserData();
-    }
-
-  }, [setLoading, saveUserAddress, saveUser]);
-
-  useEffect(() => {
-    if (!user || products.length === 0) return;
-
-    const fetchCartItems = async () => {
-      const url = "https://backend.vitivipedia.com/wp-json/cocart/v2/cart";
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-
-      if (!response.data || response.data.statusCode !== 200) return false;
-      const { data } = response;
-      if (data && data.items.length > 0) {
-        const updatedCart = data.items.map((item) => {
-          const index = products.findIndex((i) => i.id === item.id);
-          if (index !== -1) {
-            const updatedItem = {
-              ...products[index],
-              price: parseFloat(item.price),
-              quantity: parseInt(item.quantity.value),
-              item_key: item.item_key,
-              subtotal: parseFloat(item.totals.subtotal),
-            };
-            return updatedItem;
-          }
-
-          return {};
-        });
-
-        updateCart(updatedCart);
-        updateTotals(data.totals);
-      }
-    }
-
-    fetchCartItems();
-
-  }, [user, products, updateCart, updateTotals]);
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      const url = 'https://backend.vitivipedia.com/wp-json/vitivipedia/v1/cities';
-      const response = await axios.get(url);
-      if (!response.data || response.data.statusCode !== 200) return false;
-      const { data } = response;
-      const cities = Object.entries(data).map(([key, value]) => {
-        return { label: value, value: key };
-      });
-      setCities(cities);
+  // useEffect(() => {
+  //   const fetchCities = async () => {
+  //     const url = 'https://backend.vitivipedia.com/wp-json/vitivipedia/v1/cities';
+  //     const response = await axios.get(url);
+  //     if (!response.data || response.data.statusCode !== 200) return false;
+  //     const { data } = response;
+  //     const cities = Object.entries(data).map(([key, value]) => {
+  //       return { label: value, value: key };
+  //     });
+  //     setCities(cities);
 
 
-    }
-    fetchCities();
-  }, [setCities]);
+  //   }
+  //   fetchCities();
+  // }, [setCities]);
 
   useEffect(() => {
     const getRegionData = async () => {
@@ -241,7 +226,6 @@ function App({
           };
 
           product.meta_data.forEach((meta) => {
-
             if (meta.key === "type") {
               productInfo.type = meta.value;
             }
@@ -406,7 +390,7 @@ function App({
               path="/afiliacion"
               component={() => <Afiliacion />}
             />
-            <Route path="/blog/:page" component={() => <Articles />} />
+            <Route exact path="/blog/:page" component={() => <Articles />} />
             <Route path="/productores/:name" component={() => <Producer />} />
             <Route
               path="/vino/:name"

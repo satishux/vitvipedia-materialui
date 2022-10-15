@@ -69,7 +69,7 @@ const SocialMediaIcons = ({ title }) => {
         </a>
       </div>
       <a
-        class="twitter-share-button"
+        className="twitter-share-button"
         target="_blank"
         rel="noreferrer"
         href={`https://twitter.com/intent/tweet?text=${title}&url=${window.location.href}`}
