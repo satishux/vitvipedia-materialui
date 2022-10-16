@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
       },
       [theme.breakpoints.down('md')]: {
         margin: '0px 24px',
-        width: '400px',
+        maxWwidth: '400px',
+        width: '100%'
       }
     },
     titleStyle: {
@@ -80,6 +81,8 @@ const useStyles = makeStyles(theme => ({
         }
       },
       '& img': {
+        maxWidth: '100%',
+        height: 'auto',
         [theme.breakpoints.up('md')]: {
           marginTop: '1em'
         },

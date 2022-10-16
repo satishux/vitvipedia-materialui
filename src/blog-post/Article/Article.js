@@ -47,7 +47,7 @@ const Article = ({articles, onLoaded}) => {
     <div className={classes.root} style={{flex: 1}}>
       <div className={classes.marginPage}>
         <h1 className={classes.titleStyle}>{article.title}</h1>
-        <h2 className={classes.subtitle}>El proceso paso a paso.</h2>
+        <h2 className={classes.subtitle}>{article.excerpt}</h2>
         <div className={classes.articleInfo}>
           <div className={classes.authorContainer}>
             <div className={classes.avatarStyle}>

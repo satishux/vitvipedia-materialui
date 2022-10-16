@@ -14,18 +14,35 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     backgroundColor: '#ffff',
     fontFamily: 'Lora',
-    paddingBottom: '11em'
+    paddingBottom: '11em',
+    flex: 1,
+    alignItems: 'center',
   },
   marginPage: {
     width: '1200px',
+    maxWidth: '1200px',
     [theme.breakpoints.up('md')]: {
-      margin: '0px 64px'
+      margin: '0px 64px',
+      width: '100%',
     },
     [theme.breakpoints.down('lg')]: {
-      margin: '0px 48px'
+      margin: '0px 48px',
+      width: '100%',
     },
     [theme.breakpoints.down('md')]: {
-      margin: '0px 24px'
+      margin: '0px 24px',
+      maxWidth: '400px',
+      width: '100%',
+    },
+    '& img': {
+      maxWidth: '100%',
+      height: 'auto',
+      [theme.breakpoints.up('md')]: {
+        marginTop: '1em'
+      },
+      [theme.breakpoints.down('md')]: {
+        marginTop: '1em'
+      }
     }
   },
   titleStyle: {
