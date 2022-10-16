@@ -23,7 +23,7 @@ const Article = ({articles, onLoaded}) => {
     return () => {
       document.querySelector('body').style.backgroundColor = '#EEEEEE';
     };
-  }, [article]);
+  }, [article, onLoaded]);
 
 
   useEffect(() => {

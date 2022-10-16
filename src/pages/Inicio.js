@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Box from '@mui/material/Box';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { TransformWrapper, TransformComponent } from '@pronestor/react-zoom-pan-pinch';
 import EspanaMapa from '../mapas/España.js';
 
 // import FavoriteWines from '../components/ui/FavoriteWines.js';
@@ -34,8 +34,6 @@ const Inicio = ({
   const [currentRegion, setCurrentRegion] = useState('Espana');
   const [regionTitle, setRegionTitle] = useState('España');
   const [mapHeight, setMapHeight] = useState(null);
-  const [showRedWineList, setShowRedWineList] = useState(false);
-  const [showWhiteWineList, setShowWhiteWineList] = useState(false);
   const [regionSelected, setRegionSelected] = useState(false);
   const [clickedRegion, setClickedRegion] = useState('Espana');
   const [size, setSize] = useState(0);
@@ -70,34 +68,6 @@ const Inicio = ({
       setClickedRegion(mapName);
     } else {
       setClickedRegion('Espana');
-    }
-  };
-
-  //function to swap the list of wines
-
-  const showRedWines = e => {
-    // First we target parent button
-    const button = e.target.closest('button');
-
-    if (showRedWineList) {
-      setShowRedWineList(false);
-      // Here we remove css class
-      button.classList.remove('wineBtnActive');
-    } else {
-      setShowRedWineList(true);
-      button.classList.add('wineBtnActive');
-    }
-  };
-
-  const showWhiteWines = e => {
-    const button = e.target.closest('button');
-
-    if (showWhiteWineList) {
-      setShowWhiteWineList(false);
-      button.classList.remove('wineBtnActive');
-    } else {
-      setShowWhiteWineList(true);
-      button.classList.add('wineBtnActive');
     }
   };
 

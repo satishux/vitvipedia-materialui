@@ -1,7 +1,5 @@
-import { Dialog, DialogContent } from '@mui/material';
 import React, { useEffect } from 'react';
 import {
-  PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer
 } from '@paypal/react-paypal-js';
@@ -25,7 +23,7 @@ const PaymentModal = ({
         currency: currency
       }
     });
-  }, [currency, showSpinner]);
+  }, [currency, showSpinner, options, dispatch]);
 
   return (
     <>

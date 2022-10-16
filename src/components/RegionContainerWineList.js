@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import RegionContainerWineCard from './RegionContainerWineCard';
 import makeStyles from '@mui/styles/makeStyles';
 
@@ -16,8 +16,6 @@ const RegionContainerWineList = ({
   producer,
   selectedProducer,
   selectedRegion,
-  regionName,
-  storeFetchedProducts
 }) => {
   const classes = useStyles();
 

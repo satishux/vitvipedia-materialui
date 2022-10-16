@@ -3,7 +3,6 @@ import {
   Button,
   CircularProgress,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Snackbar
@@ -12,9 +11,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import QuantityCounter from './ui/QuantityCounter';
 import WineInfo from './ui/WineInfo';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import actions from '../store/actions';
 
 const useStyles = makeStyles(theme => ({
@@ -70,17 +67,11 @@ const WineModal = ({
   products,
   open,
   onClose,
-  addToCart,
-  cart,
-  removeFromCart,
-  updateServerCart,
-  user
 }) => {
   const history = useHistory();
   const classes = useStyles();
   const [wine, setWine] = useState(null);
   const [err, setErr] = useState({ show: false, message: '' });
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (products.length > 0) {
@@ -91,26 +82,6 @@ const WineModal = ({
     }
   }, [slug, products]);
 
-  const cartClickHandler = () => {
-    const updatedProduct = { ...wine };
-    updatedProduct.quantity = quantity;
-
-    const cartProductIndex = cart.findIndex(
-      item => item.id === updatedProduct.id
-    );
-    let updatedQuantity = quantity;
-
-    if (cartProductIndex !== -1) {
-      updatedQuantity += cart[cartProductIndex].quantity;
-    }
-
-    if (updatedQuantity > updatedProduct.stock) {
-      setErr({ show: true, message: 'No hay suficiente stock' });
-      return;
-    }
-
-    updateServerCart(updatedProduct, products, user.token);
-  };
 
   return (
     <>

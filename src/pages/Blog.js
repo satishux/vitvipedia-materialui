@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { connect } from "react-redux";
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -14,7 +13,6 @@ import Box from '@mui/material/Box';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Pagination from '@mui/material/Pagination';
 import SubsPanel from '../components/ui/SubsPanel';
-import actions from "../store/actions";
 
 // --------- images
 

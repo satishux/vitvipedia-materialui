@@ -80,7 +80,7 @@ const WineCard = ({ wine }) => {
     });
 
     setProductInfo(updatedProductInfo);
-  }, [wine]);
+  }, [wine, productInfo]);
 
 
   const getLabel = (text) => {
@@ -88,7 +88,7 @@ const WineCard = ({ wine }) => {
     let updatedTextArray = text.replace('_', ' ').split(' ');
 
     updatedTextArray.forEach(item => {
-      if(updatedText == '') {
+      if(updatedText === '') {
         updatedText = item[0].toUpperCase() + item.substring(1, item.length);
       } else {
         updatedText = updatedText + ' ' + item[0].toUpperCase() + item.substring(1, item.length);
@@ -150,7 +150,7 @@ const WineCard = ({ wine }) => {
                       </Typography>
                   
                   {Object.entries(productInfo).map(([key, value]) => {
-                  
+                    
                     if(value && value !== '' && key !== 'Tamaño' ) {
                       return  <Box display="flex" style={{padding: '10px 0'}}>
                         <Typography>
@@ -159,6 +159,8 @@ const WineCard = ({ wine }) => {
                         <Chip label={value.length > 30 ?  value.substring(0, 30) + '...' : value} size="small" />
                       </Box>
                     }
+
+                    return null;
                   })}
 
 

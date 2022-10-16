@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useTheme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -86,7 +85,6 @@ const useStyles = makeStyles(theme => ({
 
 const Contacto = () => {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [name, setName] = useState('');
 

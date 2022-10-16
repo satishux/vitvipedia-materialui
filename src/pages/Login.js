@@ -65,7 +65,7 @@ const Login = ({ user, saveUser }) => {
     if (user) {
       history.goBack();
     }
-  }, [user]);
+  }, [user, history]);
 
   const loginButtonHandler = data => {
     setLoading(true);

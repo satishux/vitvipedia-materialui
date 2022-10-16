@@ -28,7 +28,7 @@ const QuantityCounter = ({ wineStock, onChange, quantity }) => {
     if (onChange) {
       onChange(qty);
     }
-  }, [qty]);
+  }, [qty, onChange]);
 
   const changeQuantity = value => {
     if (value > wineStock) {

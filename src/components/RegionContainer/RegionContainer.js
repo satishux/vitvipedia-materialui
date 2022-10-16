@@ -40,48 +40,52 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
   const [grapeDescription, setGrapeDescription] = useState('');
   const [selectedProducer, setSelectedProducer] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState(null);
-  const [loading ,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const mounted = useRef(false);
-    
-  useEffect(() => {
-      mounted.current = true;
 
-      return () => {
-          mounted.current = false;
-      };
-  }, []);
-  
   useEffect(() => {
+    if(grapeDescription !== '') console.log(grapeDescription);
+  }, [grapeDescription])
+
+  useEffect(() => {
+    mounted.current = true;
     
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+
     const getRegionData = async () => {
       try {
         setLoading(true);
 
         const response = await axios.get(
           `https://backend.vitivipedia.com/wp-json/vitivipedia/v1/category/${region.toLowerCase()}`,
-          
+
         );
 
-       
+
         const data = response.data; // wordpress format
         setRegionData(data);
         setLoading(false);
 
-      } catch(err) {
+      } catch (err) {
         setLoading(false);
         console.log('ERROR is ' + err);
       }
 
     };
-      if(mounted.current) {
-        getRegionData();
-        const index = regionGrapeDescription.findIndex(
-          item => item.region === region.toLowerCase()
-        );
-        if (index >= 0) {
-          setGrapeDescription(regionGrapeDescription[index].description);
-        }
+    if (mounted.current) {
+      getRegionData();
+      const index = regionGrapeDescription.findIndex(
+        item => item.region === region.toLowerCase()
+      );
+      if (index >= 0) {
+        setGrapeDescription(regionGrapeDescription[index].description);
       }
+    }
 
 
   }, [region]);
@@ -110,8 +114,8 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
 
   let body = <Loader />;
 
-  if(!loading) {
-    body =   (
+  if (!loading) {
+    body = (
       <div className={classes.containerStyling}>
         <Grid container>
           <Grid item xs={12}>
@@ -152,7 +156,7 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
               </Grid>
             </Grid>
           </Grid>
-  
+
           <Grid item xs={12}>
             <Card className={classes.cardStyle}>
               <Grid container className={classes.headerPadding}>
@@ -168,7 +172,7 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
                 </Grid>
               </Grid>
               <CardContent className={classes.producerMargin}>
-                {regionData && regionData.children && 
+                {regionData && regionData.children &&
                   regionData.children.map(producer => (
                     <Paper elevation={0} key={producer.category.term_id} className={classes.producer}>
                       <Grid container>
@@ -191,7 +195,7 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
                           />
                         </Grid>
                         {/* Producer section ends */}
-  
+
                         {/* Wine section starts */}
                         <Grid item md={6} xs={12}>
                           <div className={classes.wineList}>
@@ -206,7 +210,7 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
                       </Grid>
                     </Paper>
                   ))}
-                
+
                 {regionData && regionData.children.length === 0 && (
                   <div
                     style={{
@@ -226,10 +230,10 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
             </Card>
           </Grid>
         </Grid>
-      </div>    
+      </div>
     );
   }
-  
+
 
   return body;
 };
@@ -242,7 +246,7 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setLoading: (val) => dispatch(actions.setLoading(val)), 
+    setLoading: (val) => dispatch(actions.setLoading(val)),
   }
 }
 

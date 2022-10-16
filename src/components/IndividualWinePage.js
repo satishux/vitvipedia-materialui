@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CircularProgress,
   Container,
@@ -13,10 +12,7 @@ import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import makeStyles from '@mui/styles/makeStyles';
 import WineInfo from './ui/WineInfo';
-import QuantityCounter from './ui/QuantityCounter';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import actions from '../store/actions';
-import axios from 'axios';
 import WineCard from './WineCard';
 
 const useStyles = makeStyles(theme => ({
@@ -69,7 +65,6 @@ const IndividualWinePage = ({
 }) => {
   const location = useLocation();
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
   const [err, setErr] = useState({ show: false, message: '' });
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [productMetaInfo, setProductMetaInfo] = useState({
@@ -90,7 +85,7 @@ const IndividualWinePage = ({
       });
       setProductMetaInfo(updatedProductInfo)
     }
-  }, [product]);
+  }, [product, productMetaInfo]);
 
   useEffect(() => {
     if (product && products && products.length > 0) {
@@ -118,7 +113,7 @@ const IndividualWinePage = ({
     let updatedTextArray = text.replace('_', ' ').split(' ');
 
     updatedTextArray.forEach(item => {
-      if (updatedText == '') {
+      if (updatedText === '') {
         updatedText = item[0].toUpperCase() + item.substring(1, item.length);
       } else {
         updatedText = updatedText + ' ' + item[0].toUpperCase() + item.substring(1, item.length);
@@ -137,26 +132,6 @@ const IndividualWinePage = ({
     );
   };
 
-  const cartClickHandler = () => {
-    const updatedProduct = { ...product };
-    updatedProduct.quantity = quantity;
-
-    const cartProductIndex = cart.findIndex(
-      item => item.id === updatedProduct.id
-    );
-    let updatedQuantity = quantity;
-
-    if (cartProductIndex !== -1) {
-      updatedQuantity += cart[cartProductIndex].quantity;
-    }
-
-    if (updatedQuantity > updatedProduct.stock) {
-      setErr({ show: true, message: 'No hay suficiente stock' });
-      return;
-    }
-
-    updateServerCart(updatedProduct, products, user.token);
-  };
 
   const productInfo = prod => {
     return (
@@ -173,43 +148,6 @@ const IndividualWinePage = ({
             stock={prod.stock}
             dorigen={prod.dorigen}
           />
-          {/* <Box className={classes.ActionButtons}>
-            <QuantityCounter
-              wineStock={prod.stock}
-              onChange={setQuantity}
-              quantity={quantity}
-            />
-            <Button
-              variant="outlined"
-              startIcon={<ShoppingCartIcon />}
-              onClick={cartClickHandler}
-              style={{
-                height: '2.75em',
-                backgroundColor: '#004874',
-                color: 'white',
-                textTransform: 'initial',
-                marginRight: '1em',
-
-                marginBottom: '0.6em'
-              }}
-              className={classes.cartBtn}
-            >
-              Añadir al carrito
-            </Button>
-            <Button
-              variant="outlined"
-              style={{
-                height: '2.75em',
-                backgroundColor: '#B25B58',
-                color: 'white',
-                textTransform: 'initial',
-                marginRight: '1em',
-                marginBottom: '0.6em'
-              }}
-            >
-              Comprar
-            </Button>
-          </Box> */}
         </Grid>
       </Grid>
     );
@@ -254,6 +192,8 @@ const IndividualWinePage = ({
                       </Box>
                       </Grid>;
                     }
+
+                    return <></>;
                   })}
                 {/* </ Box> */}
                 

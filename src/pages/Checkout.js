@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   Grid,
@@ -7,11 +7,6 @@ import {
   Box,
   TextField,
   Button,
-  FormControlLabel,
-  Radio,
-  FormControl,
-  FormLabel,
-  RadioGroup,
   Dialog,
   DialogContent
 } from '@mui/material';
@@ -32,7 +27,6 @@ const consumer_secret = 'cs_fac9c617b03b9dc71562585a46772f4103585c48';
 const Checkout = ({ address, cities, cart, cartTotals }) => {
   const [subTotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
-  const [paymentOption, setPaymentOption] = useState('paypal');
   const [payModalOpen, setPayModalOpen] = useState(false);
 
   useEffect(() => {

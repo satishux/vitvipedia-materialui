@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import { makeStyles, styled } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -20,8 +20,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Badge from '@mui/material/Badge';
 
 import logo from '../../assets/logo.svg';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
@@ -154,14 +152,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ShoppingCartBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -3,
-    top: 5,
-    //border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 6px'
-  }
-}));
 
 const Header = props => {
   const classes = useStyles();
@@ -175,18 +165,18 @@ const Header = props => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
   const location = useLocation();
-  const history = useHistory();
   const [userDropdownEl, setUserDropdownEl] = React.useState(null);
+  const { headerMapToggleVal, toggleDrawer } = props;
 
   useEffect(() => {
-    props.toggleDrawer(openDrawer)
-  }, [openDrawer])
+    toggleDrawer(openDrawer)
+  }, [openDrawer, toggleDrawer])
 
   useEffect(() => {
-    if(props.headerMapToggleVal) {
+    if(headerMapToggleVal) {
       setOpenDrawer(false);
     }
-  }, [props.headerMapToggleVal])
+  }, [headerMapToggleVal])
 
   const handleClick = event => {
     setUserDropdownEl(event.currentTarget);

@@ -42,9 +42,9 @@ const RegionContainerProducerList = ({
         </strong>
         {producer.category.name}
       </Typography>
-      <IconButton 
-        className={classes.backToProducerArrow} 
-        size="large" 
+      <IconButton
+        className={classes.backToProducerArrow}
+        size="large"
         onClick={e => {
           backToAllProducers(e);
           resetSelectedProducer();
@@ -63,39 +63,37 @@ const RegionContainerProducerList = ({
             slug: producer.category.slug
           }}
           wineList={<div className={classes.wineList}>
-          <RegionContainerWineList
+            <RegionContainerWineList
               producer={producer}
               selectedRegion={producer.category.slug}
               selectedProducer={null}
               regionName={region}
             />
-        </div>}
+          </div>}
         />
-        
-        
+
+
       </Grid>
     )}
 
     {producer.category.children.length > 0 && (
       <Grid container>
         {producer.category.children.map((item, index) => (
-          <>
-            <ProducerCard
-              key={`producer-item-${index}`}
-              item={item}
-              producer={producer}
-              showSpecificWines={showSpecificWines}
-              wineList={ <div className={classes.wineList}>
+          <ProducerCard
+            key={`producer-item-${index}`}
+            item={item}
+            producer={producer}
+            showSpecificWines={showSpecificWines}
+            wineList={<div className={classes.wineList}>
               <RegionContainerWineList
                 producer={producer}
                 selectedRegion={producer.category.slug}
                 selectedProducer={item.term_id}
                 regionName={region}
-                />
+              />
             </div>}
-            />
-           
-          </>
+          />
+
         ))}
       </Grid>
     )}
