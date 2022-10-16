@@ -5,13 +5,18 @@ import {
   CardMedia,
   Box,
   CardContent,
+  CardActions,
   Typography,
-  Button
+  Button,
+  Collapse,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import actions from '../store/actions';
 import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
 
 const useStyles = makeStyles(theme => ({
   cardContainer: {
@@ -28,7 +33,30 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
       objectFit: 'cover'
     }
-  }
+  },
+  showMobile: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex'
+    }
+  },
+  hideMobile: {
+    display: 'flex',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    }
+  },
+}));
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
 }));
 
 const ProducerCard = ({
@@ -36,9 +64,11 @@ const ProducerCard = ({
   producer,
   showSpecificWines,
   selectedProducer,
-  setSelectedProducer
+  setSelectedProducer,
+  wineList,
 }) => {
   const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
   return (
     <Grid item xs={12}>
         <Card
@@ -96,26 +126,53 @@ const ProducerCard = ({
                   }}
                 />
 
-                <Box
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    marginTop: '1em'
+              <Box
+                style={{
+                  justifyContent: 'flex-end',
+                  marginTop: '1em'
+                }}
+                className={classes.hideMobile}
+              >
+                <Button
+                  variant="contained"
+                  component={Link}
+                  to={`/productores/${item.slug}`}
+                  onClick={e => {
+                    e.stopPropagation();
                   }}
+                  style={{ textTransform: 'initial' }}
                 >
-                  <Button
-                    variant="contained"
-                    component={Link}
-                    to={`/productores/${item.slug}`}
-                    onClick={e => {
-                      e.stopPropagation();
-                    }}
-                    style={{ textTransform: 'initial' }}
-                  >
-                    Más detalles
-                  </Button>
-                </Box>
+                  Más detalles
+                </Button>
+               
+              </Box>
               </CardContent>
+              <CardActions className={classes.showMobile}>
+              <Button
+                  variant="contained"
+                  component={Link}
+                  to={`/productores/${item.slug}`}
+                  onClick={e => {
+                    e.stopPropagation();
+                  }}
+                  style={{ textTransform: 'initial' }}
+                >
+                  Más detalles
+                </Button>
+                <ExpandMore
+                  expand={expanded}
+                  onClick={() => setExpanded(!expanded)}
+                  aria-expanded={expanded}
+                  aria-label="show wines"
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </CardActions>
+              <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                  {wineList}
+                </CardContent>
+              </Collapse>
             </Box>
           </Box>
         </Card>

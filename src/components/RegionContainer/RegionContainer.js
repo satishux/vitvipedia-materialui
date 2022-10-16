@@ -1,54 +1,15 @@
 import { Card, CardContent, Grid, Paper, Typography } from '@mui/material';
 import React, { useEffect, useState, useRef } from 'react';
-import makeStyles from '@mui/styles/makeStyles';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import actions from '../store/actions';
+import actions from '../../store/actions';
 
-import RegionContainerWineList from './RegionContainerWineList';
-import RegionContainerProducerList from './RegionContainerProducerList';
-import Loader from '../pages/Loader';
+import RegionContainerWineList from '../RegionContainerWineList';
+import RegionContainerProducerList from '../RegionContainerProducerList';
+import Loader from '../../pages/Loader';
 
-const useStyles = makeStyles(theme => ({
-  containerStyling: {
-    display: 'flex',
-    width: '100%'
-  },
-  cardStyle: {
-    marginBottom: '1em'
-  },
-  regionCard: {
-    [theme.breakpoints.up('md')]: {
-      marginRight: '1em'
-    }
-  },
-  producerMargin: {
-    margin: '-1em'
-  },
-  headerPadding: {
-    padding: '1em',
-    borderBottom: '1px solid #ccc'
-  },
-  producerImg: {
-    height: '150px',
-    width: 'auto'
-  },
-  producer: {
-    padding: '1em',
-    borderRadius: 0,
-    borderBottom: '1px solid #ccc',
+import { useStyles } from './styles';
 
-    '&:last-child': {
-      borderBottom: 'none'
-    }
-  },
-  wineHeading: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    }
-  },
-
-}));
 
 const regionGrapeDescription = [
   {
@@ -233,12 +194,14 @@ const RegionContainer = ({ region, regionTitle, storeFetchedProducts }) => {
   
                         {/* Wine section starts */}
                         <Grid item md={6} xs={12}>
-                          <RegionContainerWineList
-                            producer={producer}
-                            selectedRegion={selectedRegion}
-                            selectedProducer={selectedProducer}
-                            regionName={region}
-                          />
+                          <div className={classes.wineList}>
+                            <RegionContainerWineList
+                              producer={producer}
+                              selectedRegion={selectedRegion}
+                              selectedProducer={selectedProducer}
+                              regionName={region}
+                            />
+                          </div>
                         </Grid>
                       </Grid>
                     </Paper>

@@ -5,12 +5,19 @@ import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import makeStyles from '@mui/styles/makeStyles';
 import { connect } from 'react-redux';
 import actions from '../store/actions';
+import RegionContainerWineList from './RegionContainerWineList';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   backToProducerArrow: {
     color: 'black',
     backgroundColor: '#ccc'
-  }
+  },
+  wineList: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'block'
+    }
+  },
 }));
 
 const RegionContainerProducerList = ({
@@ -55,19 +62,40 @@ const RegionContainerProducerList = ({
             description: producer.category.description,
             slug: producer.category.slug
           }}
+          wineList={<div className={classes.wineList}>
+          <RegionContainerWineList
+              producer={producer}
+              selectedRegion={producer.category.slug}
+              selectedProducer={null}
+              regionName={region}
+            />
+        </div>}
         />
+        
+        
       </Grid>
     )}
 
     {producer.category.children.length > 0 && (
       <Grid container>
         {producer.category.children.map((item, index) => (
-          <ProducerCard
-            key={`producer-item-${index}`}
-            item={item}
-            producer={producer}
-            showSpecificWines={showSpecificWines}
-          />
+          <>
+            <ProducerCard
+              key={`producer-item-${index}`}
+              item={item}
+              producer={producer}
+              showSpecificWines={showSpecificWines}
+              wineList={ <div className={classes.wineList}>
+              <RegionContainerWineList
+                producer={producer}
+                selectedRegion={producer.category.slug}
+                selectedProducer={item.term_id}
+                regionName={region}
+                />
+            </div>}
+            />
+           
+          </>
         ))}
       </Grid>
     )}

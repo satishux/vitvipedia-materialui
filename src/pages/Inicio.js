@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import EspanaMapa from '../mapas/España.js';
 
-import FavoriteWines from '../components/ui/FavoriteWines.js';
+// import FavoriteWines from '../components/ui/FavoriteWines.js';
 
 import actions from '../store/actions';
 
@@ -21,7 +21,7 @@ import inicialMapList from '../components/mapList';
 
 import useStyles from './Inicio.styles';
 import IconButton from '@mui/material/IconButton';
-import RegionContainer from '../components/RegionContainer.js';
+import RegionContainer from '../components/RegionContainer';
 
 const Inicio = ({
   isLogoClicked,
