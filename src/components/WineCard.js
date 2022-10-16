@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     padding: '1em',
-    
+
   },
   priceStyling: {
     color: '#dd4433',
@@ -55,7 +55,7 @@ const WineCard = ({ wine }) => {
 
 
   useEffect(() => {
-    const updatedProductInfo = { ...productInfo };
+    const updatedProductInfo = {};
 
     wine.meta_data.forEach(meta => {
       // updatedProductInfo[meta.key] = meta.value;
@@ -74,13 +74,13 @@ const WineCard = ({ wine }) => {
         updatedProductInfo.do = meta.value;
       }
 
-      if(meta.key === 'region') {
+      if (meta.key === 'region') {
         updatedProductInfo.region = meta.value;
       }
     });
 
     setProductInfo(updatedProductInfo);
-  }, [wine, productInfo]);
+  }, [wine]);
 
 
   const getLabel = (text) => {
@@ -88,19 +88,19 @@ const WineCard = ({ wine }) => {
     let updatedTextArray = text.replace('_', ' ').split(' ');
 
     updatedTextArray.forEach(item => {
-      if(updatedText === '') {
+      if (updatedText === '') {
         updatedText = item[0].toUpperCase() + item.substring(1, item.length);
       } else {
         updatedText = updatedText + ' ' + item[0].toUpperCase() + item.substring(1, item.length);
       }
     })
-    
+
     return updatedText;
   }
 
   return (
     <div className={classes.winecardRoot}>
-      <Card style={{cursor: 'pointer'}} onClick={() =>  history.push(`/vino/${wine.slug}`)}>
+      <Card style={{ cursor: 'pointer' }} onClick={() => history.push(`/vino/${wine.slug}`)}>
         <CardContent className={classes.wineCardContent}>
           <Grid container>
             <Grid
@@ -128,35 +128,24 @@ const WineCard = ({ wine }) => {
                 </Typography>
 
                 <Box>
-                  {/* {productInfo.Tamaño && (
-                    <Typography
-                      style={{
-                        color: '#999',
-                        fontSize: '0.9em',
-                        marginBottom: '1em'
-                      }}
-                    >
-                      Botella de {productInfo.Tamaño}
-                    </Typography>
-                  )} */}
                   <Typography
-                        style={{
-                          color: '#999',
-                          fontSize: '0.9em',
-                          marginBottom: '1em'
-                        }}
-                      >
-                        Botella de {productInfo['Tamaño']}
-                      </Typography>
-                  
+                    style={{
+                      color: '#999',
+                      fontSize: '0.9em',
+                      marginBottom: '1em'
+                    }}
+                  >
+                    Botella de {productInfo['Tamaño']}
+                  </Typography>
+
                   {Object.entries(productInfo).map(([key, value]) => {
-                    
-                    if(value && value !== '' && key !== 'Tamaño' ) {
-                      return  <Box display="flex" style={{padding: '10px 0'}}>
+
+                    if (value && value !== '' && key !== 'Tamaño') {
+                      return <Box key={`${key}-${value}`} display="flex" style={{ padding: '10px 0' }}>
                         <Typography>
                           <span className={classes.wineDetailInfo}>{getLabel(key)}:</span>{' '}
                         </Typography>
-                        <Chip label={value.length > 30 ?  value.substring(0, 30) + '...' : value} size="small" />
+                        <Chip label={value.length > 30 ? value.substring(0, 30) + '...' : value} size="small" />
                       </Box>
                     }
 
@@ -164,80 +153,11 @@ const WineCard = ({ wine }) => {
                   })}
 
 
-                  {/* {productInfo.do && (
-                    <Box display="flex">
-                      <Typography>
-                        <span className={classes.wineDetailInfo}>D.O:</span>{' '}
-                      </Typography>
-                      <Chip label={productInfo.do} size="small" />
-                    </Box>
-                  )}
-                  {productInfo.type && (
-                    <Box display="flex">
-                      <Typography>
-                        <span className={classes.wineDetailInfo}>
-                          Tipo de vino:
-                        </span>{' '}
-                      </Typography>
-                      <Chip label={productInfo.type} size="small" />
-                    </Box>
-                  )}
-                  {productInfo.variedad && (
-                    <Box display="flex">
-                      <Typography>
-                        <span className={classes.wineDetailInfo}>Variedad:</span>{' '}
-                      </Typography>
-                      <Chip label={productInfo.variedad} size="small" />
-                    </ Box>
-                  )}
-                  <Box display="flex">
-                    <Typography>
-                      <span className={classes.wineDetailInfo}>
-                        Número de botellas:
-                      </span>{' '}
-                    </Typography>
-                    <Chip label={wine.stock_quantity} size="small" />
-                  </Box> */}
 
                 </Box>
               </Box>
             </Grid>
-            {/* <Grid item xs={12} style={{ padding: '1em' }}>
-              <Divider style={{ marginTop: '0.7em', marginBottom: '0.7em' }} />
-              <Box style={{ display: 'flex', alignItems: 'flex-end' }}>
-                {wine.price && (
-                  <Typography variant="h4" component="h4">
-                    {wine.price}€
-                  </Typography>
-                )}
-                {wine.price === wine.sale_price && (
-                  <Typography
-                    className={classes.priceStyling}
-                    variant="h6"
-                    component="h6"
-                  >
-                    <del>{wine.regular_price}€ </del>
-                  </Typography>
-                )}
-              </Box>
-              <Box className={classes.buyButtonStyle}>
-                <QuantityCounter wineStock={wine.stock_quantity} />
-                <Box>
-                  <Button
-                    variant="outlined"
-                    startIcon={<ShoppingCartIcon />}
-                    style={{
-                      height: '2.75em',
-                      backgroundColor: '#004874',
-                      color: 'white',
-                      textTransform: 'initial'
-                    }}
-                  >
-                    Añadir al carrito
-                  </Button>
-                </Box>
-              </Box>
-            </Grid> */}
+
           </Grid>
         </CardContent>
       </Card>
