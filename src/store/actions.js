@@ -1,6 +1,151 @@
 import axios from 'axios';
 
 // OPERATION
+const getPosts = () => {
+  return async dispatch => {
+    try {
+      const url = 'https://backend.vitivipedia.com/wp-json/vitivipedia/v1/posts';
+      const response = await axios.get(url);
+      const posts = response.data; // wordpress format
+      dispatch(saveArticles(posts));
+    } catch (err) {
+      console.log(err);
+
+    }
+  }
+};
+
+const getProducts = () => {
+
+  return async dispatch => {
+    let data = null;
+    const url = 'https://backend.vitivipedia.com/wp-json/vitivipedia/v1/category/espana';
+    try {
+      const response = await axios.get(url);
+      if (!response.data) throw new Error('No Data from user');
+      data = response.data; // wordpress format
+    } catch (err) {
+      console.log(err);
+    }
+
+    if (!data || !data.children || data.children.length === 0) return;
+
+    let products = [];
+
+    data.children.forEach((item) => {
+      const prods = item.products.map((product) => {
+        let itemProducer = null;
+        if (item.category.parent > 0) {
+          itemProducer = item.category;
+        } else {
+          itemProducer = item.category.children.filter((item) =>
+            product.category_ids.includes(item.term_id)
+          )[0];
+        }
+
+        const productInfo = {
+          type: "",
+          do: "",
+          variedad: "",
+          Tamaño: "",
+          delivery: 0,
+          id: product.id,
+          name: product.name,
+          producer: itemProducer.name,
+          region: item.category.parent > 0 ? data.name : item.category.name,
+          img: product.image,
+          shortDescription: product.short_description,
+          description: product.description,
+          stock: product.stock_quantity,
+          slug: product.slug,
+          producerInfo: itemProducer,
+          price: parseFloat(product.price),
+          meta_data: product.meta_data
+        };
+
+        product.meta_data.forEach((meta) => {
+          if (meta.key === "type") {
+            productInfo.type = meta.value;
+          }
+          if (meta.key === "do") {
+            productInfo.do = meta.value;
+          }
+
+          if (meta.key === "variedad") {
+            productInfo.variedad = meta.value;
+          }
+
+          if (meta.key === "Tamaño") {
+            productInfo.Tamaño = meta.value;
+          }
+
+          if (meta.key === "delivery") {
+            productInfo.delivery = parseFloat(meta.value);
+          }
+
+          if (meta.key === "vinificacion") {
+            productInfo.vinificacion = meta.value;
+          }
+
+          if (meta.key === "viñedo") {
+            productInfo.viñedo = meta.value;
+          }
+
+          if (meta.key === "total_sales") {
+            productInfo.total_sales = meta.value;
+          }
+
+          if (meta.key === "temp_serv") {
+            productInfo.temp_serv = meta.value;
+          }
+
+          if (meta.key === "region") {
+            productInfo.region = meta.value;
+          }
+
+          if (meta.key === "productor") {
+            productInfo.productor = meta.value;
+          }
+
+          if (meta.key === "maridaje") {
+            productInfo.maridaje = meta.value;
+          }
+
+          if (meta.key === "graduacion") {
+            productInfo.graduacion = meta.value;
+          }
+
+          if (meta.key === "embotellado") {
+            productInfo.embotellado = meta.value;
+          }
+
+          if (meta.key === "consumo") {
+            productInfo.consumo = meta.value;
+          }
+
+          if (meta.key === "clima") {
+            productInfo.clima = meta.value;
+          }
+
+          if (meta.key === "cepas") {
+            productInfo.cepas = meta.value;
+          }
+
+          if (meta.key === "cata") {
+            productInfo.cata = meta.value;
+          }
+        });
+        return productInfo;
+      });
+
+      products = [...products, ...prods];
+    });
+
+    dispatch(setProducts(products));
+  }
+};
+
+
 const updateServerCart = (updatedProduct, products, token) => {
   return dispatch => {
     axios
@@ -235,6 +380,8 @@ const toggleDrawer = value => {
 
 
 const actions = {
+  getPosts,
+  getProducts,
   saveFevoriteWines,
   showFavWines,
   hideFavWines,
