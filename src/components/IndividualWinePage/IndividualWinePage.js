@@ -10,59 +10,14 @@ import {
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import makeStyles from '@mui/styles/makeStyles';
-import WineInfo from './ui/WineInfo';
-import actions from '../store/actions';
-import WineCard from './WineCard';
+import WineInfo from '../ui/WineInfo';
+import actions from '../../store/actions';
+import WineCard from '../WineCard/WineCard';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles(theme => ({
-  containerStyle: {
-    flex: 1,
-  },
-  spinner: {
-    display: 'flex',
-    height: '100vh',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  mainCardStyle: {
-    width: '100%'
-  },
-  imgStyling: {
-    padding: '3em',
-    display: 'flex',
-    justifyContent: 'center',
-    '& img': {
-      height: '400px'
-    }
-  },
-  ActionButtons: {
-    display: 'flex',
-    [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-      padding: '1.5em'
-    }
-  },
-  cartBtn: {
-    marginLeft: '1em',
-    [theme.breakpoints.down('md')]: {
-      marginLeft: 0
-    }
-  },
-  wineDetailInfo: {
-    fontWeight: '500'
-  }
-}));
 
-const IndividualWinePage = ({
-  products,
-  addToCart,
-  removeFromCart,
-  cart,
-  updateServerCart,
-  user
-}) => {
+
+const IndividualWinePage = ({ products }) => {
   const location = useLocation();
   const [product, setProduct] = useState(null);
   const [err, setErr] = useState({ show: false, message: '' });

@@ -1,24 +1,13 @@
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import React from 'react';
-import ProducerCard from './ProducerCard';
+import ProducerCard from '../ProducerCard/ProducerCard';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
-import makeStyles from '@mui/styles/makeStyles';
 import { connect } from 'react-redux';
-import actions from '../store/actions';
-import RegionContainerWineList from './RegionContainerWineList';
+import actions from '../../store/actions';
+import RegionContainerWineList from '../RegionContainerWineList';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles((theme) => ({
-  backToProducerArrow: {
-    color: 'black',
-    backgroundColor: '#ccc'
-  },
-  wineList: {
-    display: 'none',
-    [theme.breakpoints.down('md')]: {
-      display: 'block'
-    }
-  },
-}));
+
 
 const RegionContainerProducerList = ({
   region,

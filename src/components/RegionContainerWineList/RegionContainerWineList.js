@@ -1,16 +1,8 @@
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import RegionContainerWineCard from './RegionContainerWineCard';
-import makeStyles from '@mui/styles/makeStyles';
+import RegionContainerWineCard from '../RegionContainerWineCard/RegionContainerWineCard';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles(theme => ({
-  wineListRoot: {
-    marginTop: '3.5em',
-    [theme.breakpoints.down('md')]: {
-      marginTop: '1em'
-    }
-  }
-}));
 
 const RegionContainerWineList = ({
   producer,

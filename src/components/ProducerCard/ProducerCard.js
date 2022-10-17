@@ -12,41 +12,13 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import actions from '../store/actions';
-import makeStyles from '@mui/styles/makeStyles';
+import actions from '../../store/actions';
 import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles(theme => ({
-  cardContainer: {
-    display: 'flex',
-    [theme.breakpoints.down('md')]: {
-      flexDirection: 'column'
-    }
-  },
-  cardImage: {
-    height: 'auto',
-    width: 200,
-    [theme.breakpoints.down('md')]: {
-      height: '200px',
-      width: '100%',
-      objectFit: 'cover'
-    }
-  },
-  showMobile: {
-    display: 'none',
-    [theme.breakpoints.down('md')]: {
-      display: 'flex'
-    }
-  },
-  hideMobile: {
-    display: 'flex',
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    }
-  },
-}));
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
