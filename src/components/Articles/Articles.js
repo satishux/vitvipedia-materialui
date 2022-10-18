@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
-import ArticleComponent from '../../blog-post/Article/Article';
+import ArticleComponent from './Article';
 import { useStyles } from './styles';
 
 

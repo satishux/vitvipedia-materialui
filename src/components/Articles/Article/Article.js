@@ -3,8 +3,8 @@ import Avatar from '@mui/material/Avatar';
 import { connect } from "react-redux";
 import { useLocation} from 'react-router-dom';
 // import Disqus from '../components/ui/Disqus';
-import SocialMediaIcons from '../../components/ui/SocialMediaIcons';
-import Loader from '../../pages/Loader';
+import SocialMediaIcons from '../../../components/ui/SocialMediaIcons';
+import Loader from '../../../pages/Loader';
 import { useStyles } from './styles';
 
 
